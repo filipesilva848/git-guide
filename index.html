@@ -15,9 +15,15 @@
   <h2>📘 Git Guide</h2>
   <a href="#basico">Comandos Básicos</a>
   <a href="#branch">Branches</a>
+  <a href="#remote">Repositório Remoto</a>
+  <a href="#ssh">SSH</a>
   <a href="#merge">Merge</a>
   <a href="#diff">Diff & Histórico</a>
+  <a href="#commit">Commits</a>
+  <a href="#stash">Stash</a>
   <a href="#gitflow">Git Flow</a>
+  <a href="#gitflow-conflicts">Git Flow - Conflitos</a>
+  <a href="#difftool">Diff Tool (VS Code)</a>
 </nav>
 
 <main>
@@ -25,6 +31,21 @@
   <h1>Guia Git & Git Flow</h1>
   <button class="toggle-theme" onclick="toggleTheme()">🌙 / ☀️</button>
 </header>
+
+<div class="search-container">
+  <input 
+    type="text" 
+    class="search-box" 
+    id="searchInput"
+    placeholder="Pesquisar comandos... (Ex: merge, stash, branch)"
+    oninput="searchCommands()"
+  >
+  <span class="search-icon">🔍</span>
+</div>
+
+<div class="no-results" id="noResults">
+  Nenhum comando encontrado para sua pesquisa.
+</div>
 
 <!-- BÁSICO -->
 <section id="basico" class="open">
@@ -41,9 +62,27 @@
     </div>
 
     <div class="command">
+      <p>Baixar todas as alterações de todas as branches</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> fetch --all</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Puxar alterações do repositório remoto</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> pull origin &lt;nome-da-branch&gt;</code></pre>
+    </div>
+
+    <div class="command">
       <p>Ver diferenças de arquivo</p>
       <button class="copy">Copiar</button>
-      <pre><code><span class="git">git</span> diff <span class="path">src/arquivo.pas</span></code></pre>
+      <pre><code><span class="git">git</span> diff</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Ver status do repositório</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> status</code></pre>
     </div>
 
   </div>
@@ -60,13 +99,126 @@
     <div class="command">
       <p>Criar branch</p>
       <button class="copy">Copiar</button>
-      <pre><code><span class="git">git</span> branch minha-branch</code></pre>
+      <pre><code><span class="git">git</span> branch nome-da-branch</code></pre>
     </div>
 
     <div class="command">
-      <p>Mudar de branch</p>
+      <p>Listar branches locais</p>
       <button class="copy">Copiar</button>
-      <pre><code><span class="git">git</span> switch minha-branch</code></pre>
+      <pre><code><span class="git">git</span> branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Listar branches remotas</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> branch -r</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Mudar de branch (cria se não existir)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> checkout nome-da-branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Mudar de branch (só se existir)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> switch nome-da-branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Apagar branch</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> branch -d nome-da-branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Apagar branch forçadamente</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> branch -D nome-da-branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Apagar branch no repositório remoto</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> push origin -d nome-da-branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Resetar branch para o remote</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> reset --hard origin/&lt;branch&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Renomear uma branch</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> -m &lt;nome-branch-old&gt; &lt;nome-branch-new&gt;</code></pre>
+    </div>    
+
+  </div>
+</section>
+
+<!-- REPOSITÓRIO REMOTO -->
+<section id="remote">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>☁️ Repositório Remoto</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Enviar todas as branches para o repositório</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> push --all origin</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Enviar branch develop</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> push origin develop</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Enviar branch main</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> push origin main</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- SSH -->
+<section id="ssh">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>🔐 SSH</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Subir agente SSH</p>
+      <button class="copy">Copiar</button>
+      <pre><code>eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/chave_git_serv</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Conexão via SSH</p>
+      <button class="copy">Copiar</button>
+      <pre><code>ssh sistech@192.168.254.8</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comunicar via SSH (origin)</p>
+      <button class="copy">Copiar</button>
+      <pre><code>origin ssh://theboss@192.168.254.8/home/versionamentos/GP</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Restart na chave SSH</p>
+      <button class="copy">Copiar</button>
+      <pre><code>sudo systemctl restart ssh</code></pre>
     </div>
 
   </div>
@@ -79,16 +231,218 @@
     <span>▼</span>
   </div>
   <div class="section-content">
+
     <div class="command">
-      <p>Merge feature → develop</p>
+      <p>Merge feature → develop (passo a passo)</p>
       <button class="copy">Copiar</button>
-      <pre><code>
-<span class="git">git</span> switch develop
+      <pre><code><span class="git">git</span> switch develop
 <span class="git">git</span> pull origin develop
 <span class="git">git</span> merge feature
-<span class="git">git</span> push origin develop
-      </code></pre>
+<span class="git">git</span> push origin develop</code></pre>
     </div>
+
+    <div class="command">
+      <p>Puxar alterações de outra branch para sua feature</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> switch &lt;branch-origem&gt;
+<span class="git">git</span> pull origin &lt;branch-origem&gt;
+<span class="git">git</span> switch &lt;sua-feature&gt;
+<span class="git">git</span> merge &lt;branch-origem&gt;</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- DIFF & HISTÓRICO -->
+<section id="diff">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>🔍 Diff & Histórico</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Mostrar as alterações que foram feitas</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> diff</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comparar arquivo atual com último commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> diff <span class="path">caminho/do/arquivo.pas</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comparar arquivo atual com commit específico</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> diff &lt;hash&gt; -- <span class="path">caminho/do/arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comparar dois commits diferentes</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> diff &lt;commit-antigo&gt; &lt;commit-novo&gt; -- <span class="path">arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Ver arquivo como era em um commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> show &lt;commit&gt;:<span class="path">caminho/do/arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comparar stage com último commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> diff --cached <span class="path">caminho/do/arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Histórico + diff por commit (arquivo específico)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> log -p -- <span class="path">caminho/do/arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Ver histórico resumido</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> log --oneline</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Mostrar arquivos comitados</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> show --name-only &lt;hash-do-commit&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Mostrar alterações de um commit (arquivo específico)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> show &lt;hash&gt; <span class="path">caminho/do/arquivo</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Mostrar alterações de um commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> show &lt;hash-do-commit&gt;</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMMITS -->
+<section id="commit">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>💾 Commits</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Remover último commit (mantém alterações)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> reset --soft HEAD~1</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Remover último commit (descarta alterações)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> reset --hard HEAD~1</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Alterar último commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> commit --amend</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Reverter commit (cria novo commit)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> revert &lt;hash-do-commit&gt;</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- STASH -->
+<section id="stash">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>📦 Git Stash</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Salvar as alterações atuais</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Salvar com mensagem descritiva</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash save "Mensagem descritiva"</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Incluir arquivos não rastreados</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash -u</code></pre>
+    </div>
+
+    <div class="note">
+      <strong>Nota:</strong> O comando <code>git stash</code> guarda <strong>arquivos modificados e rastreados</strong>. Use <code>-u</code> (--include-untracked) para incluir novos arquivos não rastreados.
+    </div>
+
+    <div class="command">
+      <p>Ver o que está guardado</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash list</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Aplicar stash (sem remover da lista)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash apply</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Aplicar stash específico</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash apply stash@{1}</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Aplicar e remover da lista</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash pop</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Aplicar stash específico e remover</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash pop stash@{0}</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Apagar um stash específico</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash drop stash@{0}</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Limpar todos os stashes</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash clear</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Criar uma branch a partir de um stash</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> stash branch nome-da-branch stash@{0}</code></pre>
+    </div>
+
   </div>
 </section>
 
@@ -99,11 +453,205 @@
     <span>▼</span>
   </div>
   <div class="section-content">
+
     <div class="command">
       <p>Criar feature</p>
       <button class="copy">Copiar</button>
-      <pre><code><span class="git">git</span> flow feature start minha_feature</code></pre>
+      <pre><code><span class="git">git</span> flow feature start feature_branch</code></pre>
     </div>
+
+    <div class="command">
+      <p>Finalizar feature</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow feature finish feature_branch</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Publicar feature</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow feature publish &lt;nome-da-feature&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Puxar feature de outro desenvolvedor</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow feature pull origin &lt;nome-da-feature&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Criar release</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow release start &lt;número-da-versão&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Finalizar release</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow release finish &lt;número-da-versão&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Publicar release</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow release publish &lt;nome-da-release&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Puxar release de outro desenvolvedor</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow release pull origin &lt;nome-da-release&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Criar hotfix</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow hotfix start &lt;nome-da-hotfix&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Finalizar hotfix</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow hotfix finish &lt;número-da-hotfix&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Publicar hotfix</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow hotfix publish &lt;nome-da-hotfix&gt;</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Puxar hotfix de outro desenvolvedor</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow hotfix pull origin &lt;nome-da-hotfix&gt;</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- GIT FLOW - CONFLITOS -->
+<section id="gitflow-conflicts">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>⚠️ Git Flow - Resolver Conflitos</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="warning">
+      <strong>Situação:</strong> Você executou <code>git flow feature finish minha-feature</code> e o merge apresentou conflitos. Você já resolveu os arquivos, mas ainda não fez <code>git add</code> nem <code>git commit</code>.
+    </div>
+
+    <div class="note">
+      O Git está com um merge pendente (<code>MERGE_HEAD</code>). Não rode <code>git flow feature finish</code> novamente até finalizar o merge.
+    </div>
+
+    <div class="command">
+      <p>Passo 1: Ver status atual</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> status</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Passo 2: Adicionar arquivos resolvidos</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> add .</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Passo 3: Finalizar merge com commit</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> commit</code></pre>
+    </div>
+
+    <div class="note">
+      Após o commit, o merge é finalizado e o erro será resolvido.
+    </div>
+
+    <div class="command">
+      <p>Apagar branch manualmente (alternativa)</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> branch -d feature/minha-feature
+<span class="git">git</span> push origin --delete feature/minha-feature</code></pre>
+    </div>
+
+    <div class="warning">
+      <strong>Erro comum:</strong><br>
+      <code>fatal: You have not concluded your merge (MERGE_HEAD exists).</code><br><br>
+      <strong>Solução:</strong> Finalize o merge com <code>git add</code> + <code>git commit</code> antes de rodar <code>git flow feature finish</code>.
+    </div>
+
+    <div class="command">
+      <p>Fluxo completo - Exemplo</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> flow feature finish minha-feature
+# → deu conflito
+# Corrija os arquivos
+
+# finalize
+<span class="git">git</span> status
+<span class="git">git</span> add .
+<span class="git">git</span> commit
+
+# limpeza opcional
+<span class="git">git</span> branch -d feature/minha-feature
+<span class="git">git</span> push origin --delete feature/minha-feature</code></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- DIFFTOOL -->
+<section id="difftool">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2>🛠️ Configurar Diff Tool (VS Code)</h2>
+    <span>▼</span>
+  </div>
+  <div class="section-content">
+
+    <div class="command">
+      <p>Verificar se VS Code está no PATH</p>
+      <button class="copy">Copiar</button>
+      <pre><code>code --version</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Configurar VS Code como difftool</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> config --global diff.tool vscode
+<span class="git">git</span> config --global difftool.vscode.cmd "code --wait --diff \"\$LOCAL\" \"\$REMOTE\""
+<span class="git">git</span> config --global difftool.prompt false</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Usar difftool</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> difftool</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Comparar arquivo específico</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> difftool HEAD~1 -- <span class="path">arquivo.pas</span></code></pre>
+    </div>
+
+    <div class="command">
+      <p>Criar alias para difftool</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> config --global alias.dt difftool</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Ver configuração atual</p>
+      <button class="copy">Copiar</button>
+      <pre><code><span class="git">git</span> config --global --list | findstr diff</code></pre>
+    </div>
+
+    <div class="command">
+      <p>Salvar e sair no editor Vim</p>
+      <button class="copy">Copiar</button>
+      <pre><code>:wq</code></pre>
+    </div>
+
   </div>
 </section>
 
